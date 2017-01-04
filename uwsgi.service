@@ -1,0 +1,13 @@
+[Unit]
+Description=uWSGI instance to serve app
+
+[Service]
+ExecStartPre=-/bin/bash -c 'mkdir -p /run/uwsgi; chown pi /run/uwsgi'
+ExecStart=/bin/bash -c 'cd /home/pi/Pi-Flask-App; source venv/bin/activate; uwsgi flask_uwsgi.ini'
+Restart=always
+KillSignal=SIGQUIT
+Type=notify
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target
